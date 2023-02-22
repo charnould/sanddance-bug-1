@@ -1,0 +1,19 @@
+#vis {
+  height: 100vh;
+}
+
+/* override SandDance styles */
+.sanddance-root {
+  display: grid;
+  grid-template-rows: 100%;
+}
+
+.sanddance-gl {
+  position: unset;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+.sanddance-panel {
+  display: none !important;
+}

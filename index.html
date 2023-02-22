@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="assets/sanddance.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="assets/vega.js" charset="utf-8"></script>
+    <script src="assets/sanddance.js"></script>
+  </head>
+  <body>
+    <div id="vis"></div>
+
+    <script>
+      SandDance.use(vega);
+      var viewer = new SandDance.Viewer(document.getElementById("vis"), {
+        colors: {
+          axisText: "black",
+          gridLine: "white",
+          backgroundColor: "white",
+        },
+        fontFamily: "monospace",
+        language: {
+          count: "Counter",
+        },
+      });
+
+      //measure size of canvas, defined in style sheet above
+      var glDiv = viewer.presenter.getElement(
+        SandDance.VegaMorphCharts.PresenterElement.gl
+      );
+      var size = {
+        height: glDiv.offsetHeight,
+        width: glDiv.offsetWidth,
+      };
+
+      var insight = {
+        columns: {
+          color: "Horsepower",
+          x: "Horsepower",
+          y: "Miles_per_Gallon",
+          sort: "Horsepower",
+          facet: null,
+        },
+        scheme: "rainbow",
+        size,
+        hideAxes: false,
+        hideLegend: true,
+        signalValues: {
+          RoleX_BinsSignal: 1,
+          RoleZ_ProportionSignal: 1,
+          Text_ScaleSignal: 1.3,
+          Text_AngleXSignal: 180,
+          Text_AngleYSignal: 100,
+          RoleColor_BinCountSignal: 20,
+          Chart_PointScaleSignal: 1,
+          RoleZ_Grounded: false,
+        },
+        chart: "barchart",
+        view: "2d",
+      };
+
+      fetch("data.json")
+        .then((response) => response.json())
+        .then((data) => {
+          viewer.render({ insight }, data);
+        });
+    </script>
+  </body>
+</html>
